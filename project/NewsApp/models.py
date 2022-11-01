@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -50,6 +51,9 @@ class Post(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
+
+    def get_absolute_url(self):
+        return reverse('Post_list', args=[str(self.id)])
 
 
 class PostCategory(models.Model):
