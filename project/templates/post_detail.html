@@ -1,9 +1,0 @@
-{% extends 'default.html' %}
-
-{% load censor_filters %}
-
-{% block title %}
-{{ Post.dateCreation }}<br>
-{{ Post.title|censor}}<br>
-{{ Post.text|censor}}<br>
-{% endblock %}

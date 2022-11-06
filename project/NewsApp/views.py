@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
@@ -27,7 +28,9 @@ class Post_(DetailView):
     context_object_name = 'Post'
 
 
-class PostCreate(CreateView):
+class PostCreate(PermissionRequiredMixin, CreateView):
+    raise_exception = True
+    permission_required = ('NewsApp.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
@@ -37,7 +40,9 @@ class PostCreate(CreateView):
         return super().form_valid(form)
 
 
-class PostCreateArticles(CreateView):
+class PostCreateArticles(PermissionRequiredMixin, CreateView):
+    raise_exception = True
+    permission_required = ('NewsApp.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_edit_AR.html'
@@ -47,7 +52,9 @@ class PostCreateArticles(CreateView):
         return super().form_valid(form)
 
 
-class Postedit(UpdateView):
+class Postedit(PermissionRequiredMixin, UpdateView):
+    raise_exception = True
+    permission_required = ('NewsApp.edit_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
@@ -57,13 +64,17 @@ class Postedit(UpdateView):
         return super().form_valid(form)
 
 
-class PostDelete(DeleteView):
+class PostDelete(PermissionRequiredMixin, DeleteView):
+    raise_exception = True
+    permission_required = ('NewsApp.delete_post',)
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('fb')
 
 
-class PosteditArticles(UpdateView):
+class PosteditArticles(PermissionRequiredMixin, UpdateView):
+    raise_exception = True
+    permission_required = ('NewsApp.edit_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
@@ -73,7 +84,9 @@ class PosteditArticles(UpdateView):
         return super().form_valid(form)
 
 
-class PostDeleteArticles(DeleteView):
+class PostDeleteArticles(PermissionRequiredMixin, DeleteView):
+    raise_exception = True
+    permission_required = ('NewsApp.delete_post',)
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('fb')
