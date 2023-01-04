@@ -1,0 +1,18 @@
+{% extends 'default.html' %}
+
+{% load censor_filters %}
+
+{% load custom_tags %}
+
+{% block title %}<p> {{ Post.title|censor }} </p>{% endblock title %}
+{% block body %}
+<p> {{ Post.dateCreation }} </p>
+<p> {{ Post.author }} </p>
+<p> {{ Post.categoryType }} </p>
+<p> {% for cat in Post.postCategory.all %}
+    {{ cat.name }}/
+    {% endfor %}
+</p>
+<p> {{ Post.text }} </p>
+<p> Рейтинг: {{ Post.rating }} </p>
+{% endblock body %}

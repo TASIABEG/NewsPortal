@@ -4,22 +4,20 @@
 
 {% load custom_tags %}
 
-{% block title %}<center>Список всех новостей</center>{% endblock title %}
+{% block title %}Категория: <br><br><br>{% endblock title %}
 
 {% block body %}
 
-   <form action="" method="get">
-       {{ filterset.form.as_p }}
-       <input type="submit" value="Найти" />
-   </form>
+    {% if is_not_subscriber %}
+        <p class="text-center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm">Подписаться</a></p>
+    {% endif %}
 
-
-    {% for new in Post %}
+    {% for new in Category %}
         <tr>
         <p> {{ new.title|censor }} </p>
         <p> {{ new.dateCreation }} </p>
         <p> Категории: {% for cat in new.postCategory.all %}
-            <a href="{% url 'category' pk=cat.pk %}">{{ cat.name }} </a>/
+            <a href="{% url 'category' cat.id %}">{{ cat.name }} </a>/
             {% endfor %}
         </p>
             <p> {{ new.text|truncatechars:21|censor}} </p>

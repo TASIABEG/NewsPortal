@@ -1,6 +1,6 @@
 from django_filters import FilterSet, DateTimeFilter
 from django.forms import DateTimeInput
-from .models import Post
+from .models import Post, PostCategory
 
 class PostFilter(FilterSet):
     added_after = DateTimeFilter(

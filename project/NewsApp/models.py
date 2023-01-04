@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
-from django.urls import reverse
 
 
 class Author(models.Model):
     authorUser = models.OneToOneField(User, on_delete=models.CASCADE)
     ratingAuthor = models.SmallIntegerField(default=0)
+    def __str__(self):
+        return f'{self.authorUser}'
 
     def update_rating(self):
         postRat = self.post_set.aggregate(postRating=Sum('rating'))
@@ -23,7 +24,10 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
+    subscribers = models.ManyToManyField(User, related_name='categories')
 
+    def __str__(self):
+        return f'{self.name}'
 
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
@@ -36,8 +40,8 @@ class Post(models.Model):
     )
     categoryType = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default=ARTICLE)
     dateCreation = models.DateField(auto_now_add=True)
-    postCategory = models.ManyToManyField(Category, through="PostCategory")
-    title = models.CharField(max_length=128)
+    postCategory = models.ManyToManyField(Category, through="PostCategory", verbose_name='Категория')
+    title = models.CharField(max_length=128, verbose_name='Заголовок')
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
 
@@ -51,9 +55,6 @@ class Post(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
-
-    def get_absolute_url(self):
-        return reverse('Post_list', args=[str(self.id)])
 
 
 class PostCategory(models.Model):
