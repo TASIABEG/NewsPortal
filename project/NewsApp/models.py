@@ -56,6 +56,9 @@ class Post(models.Model):
         self.rating -= 1
         self.save()
 
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
+
 
 class PostCategory(models.Model):
     postThough = models.ForeignKey(Post, on_delete=models.CASCADE)
