@@ -15,5 +15,6 @@ urlpatterns = [
 #Придумать как исправить удаление, чтобы выводилась инфа о том что удаляется.
     path('articles/<int:pk>/delete/', PostDeleteArticles.as_view(), name='post_delete'),
     path('category/<int:pk>/', CategoryListView.as_view(), name='category'),
-    path('category/<int:pk>/subscribe', subscribe, name='subscribe'),
+    path('category/<int:pk>/subscriptions', subscriptions, name='subscriptions'),
+    path('category/<int:pk>/subscriptionsdel', subscriptionsdel, name='subscriptionsdel'),
 ]

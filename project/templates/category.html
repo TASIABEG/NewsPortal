@@ -9,9 +9,10 @@
 {% block body %}
 
     {% if is_not_subscriber %}
-        <p class="text-center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm">Подписаться</a></p>
+        <p class="text-center"><a href="{% url 'subscriptions' category.id %}" class="btn btn-secondary btn-sm">Подписаться</a></p>
+    {% else %}
+        <p class="text-center"><a href="{% url 'subscriptionsdel' category.id %}" class="btn btn-secondary btn-sm">Отписаться</a></p>
     {% endif %}
-
     {% for new in Category %}
         <tr>
         <p> {{ new.title|censor }} </p>

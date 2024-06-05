@@ -118,10 +118,18 @@ class CategoryListView(ListView):
 
 
 @login_required
-def subscribe(request, pk):
+def subscriptions(request, pk):
     user = request.user
     category = Category.objects.get(id=pk)
     category.subscribers.add(user)
 
     message = 'Вы успешно подписались на рассылку новостей категории'
+    return render(request, 'subscribe.html', {'category': category, 'message': message})
+
+def subscriptionsdel(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+    category.subscribers.remove(user)
+
+    message = 'Вы успешно отписались от рассылки новостей категории'
     return render(request, 'subscribe.html', {'category': category, 'message': message})
