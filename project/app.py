@@ -2,7 +2,7 @@ import redis
 
 
 red = redis.Redis(
-    host='redis-17246.c250.eu-central-1-1.ec2.cloud.redislabs.com:',
-    port=17246,
-    password='dGNfb9TOZDmMoJkaTzIpAJ4sucE0n6NM'
+    host='redis-10594.c311.eu-central-1-1.ec2.redns.redis-cloud.com',
+    port=10594,
+    password='BORc0sKpgr141SxjeiTEUXtGVsmb6WF5'
 )
